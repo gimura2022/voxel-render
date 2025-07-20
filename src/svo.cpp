@@ -9,6 +9,8 @@
 #include "svo.hpp"
 #include "utils.hpp"
 
+static logger::Logger logg("svo-logger");
+
 namespace svo {
 
 void Node::set_in_shader(str_t&& uniform_name, sf::Shader& shader) const
@@ -38,6 +40,8 @@ void Node::set_in_shader(str_t&& uniform_name, sf::Shader& shader) const
 
 const std::vector<glsl_node_group> Node::get_glsl_view() const
 {
+	logg.debug() << "running svo calculating to glsl view";	
+
 	if (leaf)
 		utils::error("leaf node can't be translated to glsl view");
 
@@ -75,6 +79,8 @@ const std::vector<glsl_node_group> Node::get_glsl_view() const
 
 	std::vector<glsl_node_group> groups;
 	recursive_build(-1, *this, groups, recursive_build);
+
+	logg.debug() << "building success, builded " << groups.size() << " groups";
 
 	return std::move(groups);
 }
