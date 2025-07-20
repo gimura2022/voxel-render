@@ -15,7 +15,7 @@ const vec3 voxel_pos[8] = vec3[8](
 	vec3(1, -1, -1),
 	vec3(1, -1, 1),
 	vec3(1, 1, -1),
-	vec3(1, 1, 1),
+	vec3(1, 1, 1)
 );
 
 struct intersection {
