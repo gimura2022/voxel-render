@@ -3,14 +3,20 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <string>
 
-using str_t = std::basic_string<char>;
+#include "defs.hpp"
+#include "logger.hpp"
 
-inline void error(str_t&& string)
+namespace utils {
+
+inline void error(str_view_t string)
 {
-	std::cerr << string << std::endl;
+	static logger::Logger logger("error-logger");
+
+	logger.error() << string;
 	std::exit(-1);
 }
+
+};
 
 #endif

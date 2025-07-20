@@ -10,16 +10,23 @@
 #include <SFML/Graphics/Color.hpp>
 
 #include "game.hpp"
+#include "logger.hpp"
 #include "svo.hpp"
 #include "utils.hpp"
 
+static logger::Logger logg("game-logger");
+
 Game::Game()
 {
+	logg.info() << "initializing game";
+
+	logg.debug() << "creating window";
 	window.create(sf::VideoMode({ WINDOW_WIDTH, WINDOW_HEIGHT }), WINDOW_TITLE);
 	window.setPosition(sf::Vector2i(0, 0));
 
+	logg.debug() << "compiling shaders";
 	if (!shader.loadFromFile("shader.frag", sf::Shader::Type::Fragment))
-		error("can't load fragment shader");
+		utils::error("can't load fragment shader");
 
 	std::random_device dev;
 	std::mt19937 rng(dev());
@@ -29,6 +36,7 @@ Game::Game()
 		return sf::Color(dist(rng), dist(rng), dist(rng));
 	};
 
+	logg.debug() << "setting up octotree";
 	svo::Node tree = svo::Node({
 		std::make_unique<svo::Node>(get_random_color()),
 		std::make_unique<svo::Node>(get_random_color()),
@@ -54,17 +62,23 @@ Game::Game()
 
 void Game::run()
 {
+	logg.info() << "running main loop";
+
 	while (running) {
 		running = running ? window.isOpen() : running;
 
 		while (const std::optional event = window.pollEvent()) {
-			if (event->is<sf::Event::Closed>())
+			if (event->is<sf::Event::Closed>()) {
 				window.close();
+				logg.debug() << "window close event polled";
+			}
 		}
 
 		update(delta_clock.restart().asSeconds());
 		render();
 	}
+
+	logg.info() << "shutting down";
 }
 
 void Game::render()

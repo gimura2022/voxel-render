@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics/Glsl.hpp>
 
+#include "defs.hpp"
 #include "svo.hpp"
 #include "utils.hpp"
 
@@ -38,7 +39,7 @@ void Node::set_in_shader(str_t&& uniform_name, sf::Shader& shader) const
 const std::vector<glsl_node_group> Node::get_glsl_view() const
 {
 	if (leaf)
-		error("leaf node can't be translated to glsl view");
+		utils::error("leaf node can't be translated to glsl view");
 
 	auto recursive_build = [] (int parent, const Node& node, std::vector<glsl_node_group>& groups,
 			auto&& recursive_build) -> int {

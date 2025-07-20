@@ -10,7 +10,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Shader.hpp>
 
-#include "utils.hpp"
+#include "defs.hpp"
 
 namespace svo {
 
