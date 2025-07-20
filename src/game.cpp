@@ -25,7 +25,7 @@ Game::Game()
 	window.setPosition(sf::Vector2i(0, 0));
 
 	logg.debug() << "compiling shaders";
-	if (!shader.loadFromFile("shader.frag", sf::Shader::Type::Fragment))
+	if (!shader.loadFromFile("shaders/shader.frag", sf::Shader::Type::Fragment))
 		utils::error("can't load fragment shader");
 
 	std::random_device dev;
