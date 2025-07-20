@@ -1,6 +1,7 @@
 #include <memory>
 #include <random>
 #include <string>
+#include <optional>
 
 #include <SFML/Graphics/Glsl.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -14,10 +15,10 @@
 
 Game::Game()
 {
-	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE);
+	window.create(sf::VideoMode({ WINDOW_WIDTH, WINDOW_HEIGHT }), WINDOW_TITLE);
 	window.setPosition(sf::Vector2i(0, 0));
 
-	if (!shader.loadFromFile("shader.frag", sf::Shader::Fragment))
+	if (!shader.loadFromFile("shader.frag", sf::Shader::Type::Fragment))
 		error("can't load fragment shader");
 
 	std::random_device dev;
@@ -51,25 +52,14 @@ Game::Game()
 	tree.set_in_shader("u_groups", shader);
 }
 
-
 void Game::run()
 {
 	while (running) {
 		running = running ? window.isOpen() : running;
 
-		for (auto event = sf::Event(); window.pollEvent(event);) {
-			switch (event.type) {
-			case sf::Event::Closed:
+		while (const std::optional event = window.pollEvent()) {
+			if (event->is<sf::Event::Closed>())
 				window.close();
-				break;
-
-			case sf::Event::MouseMoved:
-				mouse_pos = window.mapPixelToCoords({ event.mouseMove.x,
-						event.mouseMove.y });
-				break;
-
-			default: break;
-			}
 		}
 
 		update(delta_clock.restart().asSeconds());

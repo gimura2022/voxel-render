@@ -106,4 +106,3 @@ sf::Color Node::get_color() const
 }
 
 }
-
