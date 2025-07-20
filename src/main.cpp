@@ -1,6 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
-
 #include "game.hpp"
 
 int main()
