@@ -19,6 +19,8 @@ public:
 
 	static inline constexpr auto WINDOW_TITLE = "game";
 
+	static inline constexpr auto SHADER_MAIN = "shaders/shader.frag";
+
 	Game();
 
 	void run();

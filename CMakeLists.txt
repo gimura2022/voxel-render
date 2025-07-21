@@ -13,7 +13,9 @@ add_executable(main
 	src/game.cpp
 	src/camera.cpp
 	src/svo.cpp
-	src/logger.cpp)
+	src/logger.cpp
+	src/glsl_include_preprocessor.cpp
+	src/utils.cpp)
 
 set_property(TARGET main PROPERTY CXX_STANDARD 20)
 target_link_libraries(main PRIVATE SFML::Graphics SFML::Window SFML::System)

@@ -9,7 +9,9 @@
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Graphics/Color.hpp>
 
+#include "defs.hpp"
 #include "game.hpp"
+#include "glsl_include_preprocessor.hpp"
 #include "logger.hpp"
 #include "svo.hpp"
 #include "utils.hpp"
@@ -25,7 +27,8 @@ Game::Game()
 	window.setPosition(sf::Vector2i(0, 0));
 
 	logg.debug() << "compiling shaders";
-	if (!shader.loadFromFile("shaders/shader.frag", sf::Shader::Type::Fragment))
+
+	if (!shader.loadFromFile(SHADER_MAIN, sf::Shader::Type::Fragment))
 		utils::error("can't load fragment shader");
 
 	std::random_device dev;
